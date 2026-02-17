@@ -1,26 +1,104 @@
-@import "tailwindcss";
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root { color-scheme: dark; }
+html, body { height: 100%; }
+
+body{
+  @apply bg-zinc-950 text-zinc-100 antialiased overflow-x-hidden;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* hide default cursor on fine pointers only */
+@media (pointer: fine) {
+  html, body, * { cursor: none !important; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::selection{
+  @apply bg-white text-black;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* smooth anchor offset */
+section { scroll-margin-top: 96px; }
+
+/* nice blur blobs */
+.blob {
+  filter: blur(60px);
+  opacity: .6;
+  transform: translateZ(0);
+}
+
+/* subtle grid */
+.gridbg{
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 20%, black 30%, transparent 70%);
+}
+
+/* ===== Custom Cursor ===== */
+.cursor {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate3d(-9999px, -9999px, 0);
+  will-change: transform;
+}
+
+.cursor-ring{
+  width: 44px;
+  height: 44px;
+  margin-left: -22px;
+  margin-top: -22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.03);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 24px rgba(0,255,255,.10),
+    0 0 48px rgba(255,0,255,.10);
+  transition: width .18s ease, height .18s ease, margin .18s ease, border-color .18s ease, opacity .18s ease;
+  opacity: .9;
+}
+
+.cursor-dot{
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.95);
+  box-shadow:
+    0 0 18px rgba(255,255,255,.25),
+    0 0 40px rgba(0,255,255,.12),
+    0 0 60px rgba(255,0,255,.12);
+  transition: transform .12s ease, opacity .18s ease;
+  opacity: .95;
+}
+
+/* hover state */
+.cursor--hover.cursor-ring{
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  border-color: rgba(255,255,255,.38);
+  opacity: 1;
+}
+.cursor--hover.cursor-dot{
+  opacity: .85;
+}
+
+/* click state */
+.cursor--down.cursor-ring{
+  width: 34px;
+  height: 34px;
+  margin-left: -17px;
+  margin-top: -17px;
+  opacity: .95;
+}
+.cursor--down.cursor-dot{
+  opacity: 1;
 }
