@@ -1,14 +1,17 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+import Link from "next/link";
 
 import SmoothProvider from "@/components/SmoothProvider";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import MagneticButton from "@/components/MagneticButton";
 import TextReveal from "@/components/TextReveal";
+import StickyShowcase from "@/components/StickyShowcase";
+import ParallaxScroll from "@/components/ParallaxScroll";
 
 const cards = [
   { title: "Glass UI", desc: "Blur + border halus, modern banget." },
@@ -61,7 +64,7 @@ export default function Page() {
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70"
             >
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Smooth • Modern • Cinematic
+              Smooth • Modern • Cinematic • Transitions
             </motion.p>
 
             <h1 className="mt-6 text-4xl md:text-6xl font-semibold leading-tight">
@@ -80,7 +83,7 @@ export default function Page() {
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.35 }}
               className="mt-5 max-w-2xl text-white/70"
             >
-              Sekarang hero title muncul per huruf (cinematic), plus ada scroll progress bar di atas layar.
+              Sekarang sudah lengkap: page transitions, sticky cinematic section, dan GSAP parallax scroll.
             </motion.p>
 
             <motion.div
@@ -89,21 +92,29 @@ export default function Page() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.45 }}
               className="mt-8 flex flex-col sm:flex-row gap-3"
             >
-              <MagneticButton className="rounded-full bg-white text-black px-6 py-3 font-semibold" >
+              <MagneticButton className="rounded-full bg-white text-black px-6 py-3 font-semibold">
                 Start Project
               </MagneticButton>
 
               <a
                 data-magnetic
-                href="#features"
+                href="#sticky"
                 className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 transition text-center"
               >
-                See Features
+                Sticky Section
               </a>
+
+              <Link
+                data-magnetic
+                href="/about"
+                className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 transition text-center"
+              >
+                About (transition)
+              </Link>
             </motion.div>
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
-              {["Cinematic text", "Progress bar", "Premium motion"].map((t, i) => (
+              {["Route transitions", "Sticky cinematic", "GSAP parallax"].map((t, i) => (
                 <motion.div
                   key={t}
                   initial={{ opacity: 0, y: 18 }}
@@ -169,6 +180,12 @@ export default function Page() {
           </div>
         </section>
 
+        {/* NEW: STICKY CINEMATIC */}
+        <StickyShowcase />
+
+        {/* NEW: GSAP PARALLAX */}
+        <ParallaxScroll />
+
         {/* PRICING */}
         <section id="pricing" className="mt-16 pb-20">
           <Reveal>
@@ -194,8 +211,8 @@ export default function Page() {
 
                   <ul className="mt-5 space-y-2 text-white/70 text-sm">
                     <li>• Smooth scrolling</li>
-                    <li>• Reveal animations</li>
-                    <li>• Cinematic hero text</li>
+                    <li>• Route transitions</li>
+                    <li>• Sticky + GSAP parallax</li>
                   </ul>
 
                   <MagneticButton className="mt-6 w-full rounded-2xl bg-white text-black px-5 py-3 font-semibold">

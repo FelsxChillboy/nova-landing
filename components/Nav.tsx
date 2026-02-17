@@ -1,11 +1,14 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const links = [
-  { href: "#work", label: "Work" },
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
+  { href: "/#work", label: "Work" },
+  { href: "/#features", label: "Features" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
@@ -18,30 +21,30 @@ export default function Nav() {
     >
       <div className="mx-auto max-w-6xl px-4">
         <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-4 py-3">
-          <a data-magnetic href="#" className="font-semibold tracking-wide">
+          <Link data-magnetic href="/" className="font-semibold tracking-wide">
             NOVA<span className="text-white/50">.</span>
-          </a>
+          </Link>
 
           <nav className="hidden md:flex gap-6 text-sm text-white/70">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 data-magnetic
                 href={l.href}
                 className="hover:text-white transition"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <a
+          <Link
             data-magnetic
-            href="#pricing"
+            href="/#pricing"
             className="rounded-full bg-white text-black px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
     </motion.header>
