@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -8,6 +8,7 @@ import SmoothProvider from "@/components/SmoothProvider";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import MagneticButton from "@/components/MagneticButton";
+import TextReveal from "@/components/TextReveal";
 
 const cards = [
   { title: "Glass UI", desc: "Blur + border halus, modern banget." },
@@ -41,6 +42,7 @@ export default function Page() {
     <SmoothProvider>
       <Nav />
 
+      {/* Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 gridbg opacity-40" />
         <div ref={orb1} className="blob absolute -left-24 top-10 h-72 w-72 rounded-full bg-fuchsia-500/40" />
@@ -48,6 +50,7 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950 to-zinc-950" />
       </div>
 
+      {/* HERO */}
       <main className="mx-auto max-w-6xl px-4 pt-28">
         <div ref={heroRef} className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl">
           <div className="p-8 md:p-14">
@@ -58,62 +61,130 @@ export default function Page() {
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70"
             >
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Smooth • Modern • Animated
+              Smooth • Modern • Cinematic
             </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.05 }}
-              className="mt-6 text-4xl md:text-6xl font-semibold leading-tight"
-            >
-              Build a{" "}
-              <span className="bg-gradient-to-r from-fuchsia-400 to-cyan-300 text-transparent bg-clip-text">
-                premium landing
-              </span>{" "}
-              that feels expensive.
-            </motion.h1>
+            <h1 className="mt-6 text-4xl md:text-6xl font-semibold leading-tight">
+              <TextReveal text="Build a " />
+              <TextReveal
+                text="premium landing"
+                className="bg-gradient-to-r from-fuchsia-400 to-cyan-300 text-transparent bg-clip-text"
+                delay={0.15}
+              />
+              <TextReveal text=" that feels expensive." delay={0.25} />
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.12 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.35 }}
               className="mt-5 max-w-2xl text-white/70"
             >
-              Starter template Next.js + Tailwind + Framer Motion + Lenis + GSAP.
-              Animasi halus, reveal on scroll, parallax, dan micro-interactions.
+              Sekarang hero title muncul per huruf (cinematic), plus ada scroll progress bar di atas layar.
             </motion.p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <MagneticButton className="rounded-full bg-white text-black px-6 py-3 font-semibold">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.45 }}
+              className="mt-8 flex flex-col sm:flex-row gap-3"
+            >
+              <MagneticButton className="rounded-full bg-white text-black px-6 py-3 font-semibold" >
                 Start Project
               </MagneticButton>
 
               <a
+                data-magnetic
                 href="#features"
                 className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 transition text-center"
               >
                 See Features
               </a>
-            </div>
+            </motion.div>
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
-              {["60fps feel", "Modern UI", "Easy to extend"].map((t, i) => (
+              {["Cinematic text", "Progress bar", "Premium motion"].map((t, i) => (
                 <motion.div
                   key={t}
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.18 + i * 0.08 }}
+                  transition={{ duration: 0.7, delay: 0.55 + i * 0.08 }}
                   className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white/70"
                 >
                   <span className="text-white font-semibold">{t}</span>
-                  <div className="mt-1">Polished motion + smooth scroll</div>
+                  <div className="mt-1">Halus, smooth, dan kelihatan mahal</div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          <div classNametext-black px-3 py-1 text-xs font-semibold">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -right-20 -bottom-24 h-72 w-72 rounded-full bg-white/5 blur-2xl" />
+            <div className="absolute left-10 bottom-10 h-40 w-40 rounded-full bg-fuchsia-400/10 blur-2xl" />
+          </div>
+        </div>
+
+        {/* WORK */}
+        <section id="work" className="mt-16">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-semibold">Selected Work</h2>
+          </Reveal>
+          <div className="mt-6 grid md:grid-cols-2 gap-4">
+            {["Neon Commerce", "Orbit Studio"].map((name, i) => (
+              <Reveal key={name} delay={i * 0.08}>
+                <div className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 hover:bg-white/10 transition">
+                  <div className="flex items-center justify-between">
+                    <div className="font-semibold">{name}</div>
+                    <div className="text-white/50 text-sm">2026</div>
+                  </div>
+                  <p className="mt-3 text-white/70">
+                    Landing page dengan animasi halus, CTA kuat, dan layout rapi.
+                  </p>
+                  <div className="mt-5 h-[140px] rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0" />
+                  <div className="mt-4 text-sm text-white/60 group-hover:text-white transition">
+                    View case study →
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* FEATURES */}
+        <section id="features" className="mt-16">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-semibold">Features</h2>
+          </Reveal>
+
+          <div className="mt-6 grid md:grid-cols-3 gap-4">
+            {cards.map((c, i) => (
+              <Reveal key={c.title} delay={i * 0.08}>
+                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+                  <div className="text-lg font-semibold">{c.title}</div>
+                  <p className="mt-2 text-white/70">{c.desc}</p>
+                  <div className="mt-5 h-10 w-10 rounded-2xl border border-white/10 bg-white/5" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* PRICING */}
+        <section id="pricing" className="mt-16 pb-20">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-semibold">Pricing</h2>
+          </Reveal>
+
+          <div className="mt-6 grid md:grid-cols-3 gap-4">
+            {[
+              { name: "Starter", price: "Rp0", tag: "Buat latihan" },
+              { name: "Pro", price: "Rp49k", tag: "Portfolio serius" },
+              { name: "Studio", price: "Rp99k", tag: "Client-ready" },
+            ].map((p, i) => (
+              <Reveal key={p.name} delay={i * 0.08}>
+                <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+                  {p.name === "Pro" && (
+                    <div className="absolute -top-3 left-6 rounded-full bg-white text-black px-3 py-1 text-xs font-semibold">
                       Most Popular
                     </div>
                   )}
@@ -124,7 +195,7 @@ export default function Page() {
                   <ul className="mt-5 space-y-2 text-white/70 text-sm">
                     <li>• Smooth scrolling</li>
                     <li>• Reveal animations</li>
-                    <li>• Glass + gradients</li>
+                    <li>• Cinematic hero text</li>
                   </ul>
 
                   <MagneticButton className="mt-6 w-full rounded-2xl bg-white text-black px-5 py-3 font-semibold">
