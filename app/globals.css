@@ -1,20 +1,43 @@
 ﻿@import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root { color-scheme: dark; }
 html, body { height: 100%; }
 
+/* THEME BASE (NO @apply to avoid Tailwind v4 reference issue) */
 body{
-  @apply bg-zinc-950 text-zinc-100 antialiased overflow-x-hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* dark theme */
+html.dark body{
+  background: #09090b; /* zinc-950 */
+  color: #f4f4f5;      /* zinc-100 */
+}
+
+/* light theme */
+html.light body{
+  background: #fafafa; /* zinc-50 */
+  color: #18181b;      /* zinc-900 */
+}
+
+::selection{
+  background: #000;
+  color: #fff;
+}
+html.dark ::selection{
+  background: #fff;
+  color: #000;
 }
 
 /* hide default cursor on fine pointers only */
 @media (pointer: fine) {
   html, body, * { cursor: none !important; }
-}
-
-::selection{
-  @apply bg-white text-black;
 }
 
 /* smooth anchor offset */
@@ -34,6 +57,11 @@ section { scroll-margin-top: 96px; }
     linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(circle at 50% 20%, black 30%, transparent 70%);
+}
+html.light .gridbg{
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,.06) 1px, transparent 1px);
 }
 
 /* ===== Custom Cursor ===== */
@@ -62,6 +90,15 @@ section { scroll-margin-top: 96px; }
   opacity: .9;
 }
 
+/* light adjustments */
+html.light .cursor-ring{
+  border: 1px solid rgba(0,0,0,.22);
+  background: rgba(0,0,0,.03);
+  box-shadow:
+    0 0 24px rgba(0,120,255,.10),
+    0 0 48px rgba(180,0,255,.10);
+}
+
 .cursor-dot{
   width: 10px;
   height: 10px;
@@ -76,6 +113,13 @@ section { scroll-margin-top: 96px; }
   transition: transform .12s ease, opacity .18s ease;
   opacity: .95;
 }
+html.light .cursor-dot{
+  background: rgba(0,0,0,.85);
+  box-shadow:
+    0 0 18px rgba(0,0,0,.15),
+    0 0 40px rgba(0,120,255,.12),
+    0 0 60px rgba(180,0,255,.10);
+}
 
 /* hover state */
 .cursor--hover.cursor-ring{
@@ -86,6 +130,10 @@ section { scroll-margin-top: 96px; }
   border-color: rgba(255,255,255,.38);
   opacity: 1;
 }
+html.light .cursor--hover.cursor-ring{
+  border-color: rgba(0,0,0,.38);
+}
+
 .cursor--hover.cursor-dot{
   opacity: .85;
 }

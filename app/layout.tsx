@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import CursorGlow from "@/components/CursorGlow";
 import ScrollProgress from "@/components/ScrollProgress";
+import ThemeProvider from "@/components/ThemeProvider";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export const metadata: Metadata = {
   title: "NOVA — Modern Animated Landing",
@@ -10,11 +12,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body>
-        <ScrollProgress />
-        <CursorGlow />
-        {children}
+        <ThemeProvider>
+          <LoadingScreen />
+          <ScrollProgress />
+          <CursorGlow />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
